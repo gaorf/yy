@@ -1,0 +1,90 @@
+<extend name="Public:base"/>
+<block name="container">
+<div class="page-container">
+	<form action="{:U('writeBrand')}" method="post" class="form form-horizontal validate" id="form-article-add">
+		<input type="hidden" name="id" value='{$row.id}'/>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$row.brand_name}" name="brand_name" placeholder="" id="" required >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属企业：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text company-name" style="width:25%" value="{$row.company_name}" readonly name="company_name" required >
+				<input type="hidden" class="input-text company-id" style="width:5%" value="{$row.company_id}" readonly name="company_id" required >
+				<a href="###" class="btn btn-primary select-company">选择企业</a>
+				<div class="company-show mt-20  hide">
+					<input type="text" class="input-text" style="width:25%" onkeyup="search(this);" placeholder="检索企业"/>
+					<div class="company-list mt-10">
+						<volist name="Company_list" id="vo">
+							<a href="###" class="btn btn-link check-company" data-id="{$vo.id}">{$vo.company_name}</a>
+						</volist>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">品牌简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="brand_desc" id="" class="textarea" cols="30" rows="10">{$row.brand_desc}</textarea>
+			</div>
+		</div>
+		<div class="row cl skin-minimal">
+			<label class="form-label col-xs-4 col-sm-2">状态：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="switch" data-on="success" data-off="warning" data-animated="false" data-on-label="是" data-off-label="否">
+				    <input type="checkbox" name="status" <if condition="!isset($row['status']) OR $row['status'] eq 1">checked</if> value="1" />
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 提交</button>
+			</div>
+		</div>
+	</form>
+</div>	
+</block>
+<block name="js">
+<script src="__STATICS__distpicker/distpicker.data.js"></script>
+<script src="__STATICS__distpicker/distpicker.js"></script>
+<script>
+$(function(){
+	$(".distpicker").distpicker({
+		province: "{$row.province}",
+		city: "{$row.city}",
+		district: "{$row.district}",
+	});
+	$(".validate").validate();
+	
+	$(".check-company").click(function(){
+		var companyId = $(this).data('id');
+		var companyName = $(this).text();
+		$(".company-id").val(companyId);
+		$(".company-name").val(companyName);
+		return false;
+	});
+	
+	$(".select-company").click(function(){
+		if($(".company-show").css("display")=='block'){
+			$(".company-show").hide();
+		}else{
+			$(".company-show").show();
+		}
+	});
+	
+});
+
+function search(obj){
+	var box = $(".company-list");
+	var key = $(obj).val();
+	$(".company-list a").hide();
+	$(".company-list a:contains("+key+")").show();
+	
+	
+}
+
+</script>
+</block>

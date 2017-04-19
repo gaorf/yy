@@ -1,0 +1,56 @@
+<extend name="Public:base"/>
+<block name="container">
+<div class="page-container">
+	<form action="{:U('writeCompany')}" method="post" class="form form-horizontal validate" id="form-article-add">
+		<input type="hidden" name="id" value='{$row.id}'/>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>企业名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$row.company_name}" name="company_name" placeholder="" id="" required >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
+			<div class="formControls col-xs-8 col-sm-9 distpicker link-select">
+				  <span class="select-box"><select class="select" name="province" required></select></span>
+				  <span class="select-box"><select class="select" name="city" required></select></span>
+				  <span class="select-box"><select class="select" name="district" required></select></span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">企业简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="company_desc" id="" class="textarea" cols="30" rows="10">{$row.company_desc}</textarea>
+			</div>
+		</div>
+		<div class="row cl skin-minimal">
+			<label class="form-label col-xs-4 col-sm-2">状态：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="switch" data-on="success" data-off="warning" data-animated="false" data-on-label="是" data-off-label="否">
+				    <input type="checkbox" name="status" <if condition="!isset($row['status']) OR $row['status'] eq 1">checked</if> value="1" />
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 提交</button>
+			</div>
+		</div>
+	</form>
+</div>	
+</block>
+<block name="js">
+<script src="__STATICS__distpicker/distpicker.data.js"></script>
+<script src="__STATICS__distpicker/distpicker.js"></script>
+<script>
+$(function(){
+	$(".distpicker").distpicker({
+		province: "{$row.province}",
+		city: "{$row.city}",
+		district: "{$row.district}",
+	});
+	$(".validate").validate();
+});
+
+</script>
+</block>

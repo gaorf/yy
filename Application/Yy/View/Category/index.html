@@ -1,0 +1,30 @@
+<extend name="Public:base"/>
+<block name="container">
+<div class="page-container">
+	<div class="cl pd-5 bg-1">
+		<span class="l">
+			<a class="btn btn-primary radius" href="{:U('Category/addCategory')}"><i class="Hui-iconfont">&#xe600;</i> 添加分类</a>
+		</span> <span class="r"></span>
+	</div>
+	<div class="mt-20">
+		<form name="myform" action="{:U('Category/listorder')}" method="post" class="form">
+			<table class="table table-border table-striped table-hover">
+				<tr class="active text-c">
+					<th width="80">排序</th>
+					<th width="100">id</th>
+					<th>名称</th>
+					<th width="80">菜单显示</th>
+					<th width="80">状态</th>
+					<th width="180">管理</th>
+				</tr>
+				{$select_category}
+			</table>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9">
+					<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe667;</i> 排序</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</block>
